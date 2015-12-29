@@ -21,6 +21,7 @@ CPROTO = cproto
 SRCS =	drm-plugin.c			\
 	device.c			\
 	device-intel.c			\
+	device-k2000.c			\
 	framebuffer-dumb.c		\
 	framebuffer-i915_foreign.c	\
 	monitor.c			\
