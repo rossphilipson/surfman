@@ -314,7 +314,6 @@ static struct drm_framebuffer *k2000_framebuffer_new(struct drm_device *device, 
         drmfb->ops->release(drmfb);
         return NULL;
     }
-succeed:
     /* TODO: We might find useful to have a list of framebuffers for each device. */
     return drmfb;
 }
@@ -593,7 +592,7 @@ static int k2000_match_udev_device(struct udev *udev, struct udev_device *device
 {
     const char *driver_str;
     const char *devid_str;
-    int devid;
+    int devid = 0;
     struct udev_device *dev;
     int rc;
 
@@ -624,9 +623,9 @@ static int k2000_match_udev_device(struct udev *udev, struct udev_device *device
     if (devid_str)
         devid = strtol(devid_str, NULL, 16);
 
-    DRM_ERR("***RJP*** driver: %s devid: %x", driver, devid);
+    rc = !driver_str || strncmp(driver_str, "nouveau", sizeof ("nouveau") - 1) || devid != 0x0ffe;
+    DRM_ERR("***RJP*** driver: %s devid: %x rc: %d", driver_str, devid, rc);
 
-    rc = !driver || strncmp(driver, "nouveau", sizeof ("nouveau") - 1) || devid != 0x0ffe;
     udev_device_unref(dev);
     return rc;
 }
