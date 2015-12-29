@@ -624,7 +624,7 @@ static int k2000_match_udev_device(struct udev *udev, struct udev_device *device
         devid = strtol(devid_str, NULL, 16);
 
     rc = !driver_str || strncmp(driver_str, "nouveau", sizeof ("nouveau") - 1) || devid != 0x0ffe;
-    DRM_ERR("***RJP*** driver: %s devid: %x rc: %d", driver_str, devid, rc);
+    DRM_ERR("***RJP*** driver: %s devid: 0x%4.4x rc: %d", driver_str, devid, rc);
 
     udev_device_unref(dev);
     return rc;
